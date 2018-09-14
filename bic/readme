@@ -1,0 +1,3 @@
+the BIC, which named as a short of basic interface component, used to provide all basic protocol interface process components.
+the base interface components are classified by the different protocol, and in each BIC file, it will translate the protocol
+based interface information into several unified abstracted information, and can be easily used by high UPI components.
