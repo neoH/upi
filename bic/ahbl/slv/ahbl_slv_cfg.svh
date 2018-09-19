@@ -25,7 +25,7 @@ class ahbl_slv_cfg #(AW,DW,type IFC) extends uvm_object;
 	// memory api to store and process all the slave memory spaces
 	// ---- CFG
 	mem_api #(bit[AW-1:0],bit[DW-1:0]) m_mem;
-	function void write(input bit[AW-1:0] addr, bit[DW-1:0] data, input ahbl_size_enum size);
+	function void write(input bit[AW-1:0] addr, bit[DW-1:0] data, input ahbl_hsize_enum size);
 		uint32_t len;
 		case (size) // {
 			AHBL_BYTE : begin len = 1; end
@@ -40,7 +40,7 @@ class ahbl_slv_cfg #(AW,DW,type IFC) extends uvm_object;
 		m_mem.write(addr,data,len);
 	endfunction : write
 
-	function void read(input bit [AW-1:0] addr, input ahbl_size_enum size, ref bit[DW-1:0] rdata);
+	function void read(input bit [AW-1:0] addr, input ahbl_hsize_enum size, ref bit[DW-1:0] rdata);
 		uint32_t len;
 		case (size) // {
 			AHBL_BYTE : begin len = 1; end
@@ -121,7 +121,7 @@ class ahbl_slv_cfg #(AW,DW,type IFC) extends uvm_object;
 
 	// function to check the enterred address is in range or not, if is, then return 1, else return 0.
 	//
-	function bit is_in_range(input bit [AW-1:0] targ, input ahbl_size_enum size);
+	function bit is_in_range(input bit [AW-1:0] targ, input ahbl_hsize_enum size);
 		uint32_t loop = 0;
 		uint32_t len;
 		case (size) // {

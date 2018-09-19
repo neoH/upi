@@ -62,7 +62,7 @@ typedef enum logic [2:0]
 	AHBL_WRAP16 = 'h6,
 	AHBL_INCR16 = 'h7,
 	AHBL_HBURST_X = 'hx
-} ahbl_burst_enum;
+} ahbl_hburst_enum;
 
 typedef enum logic
 {
@@ -97,7 +97,7 @@ typedef enum logic [2:0]
 	AHBL_SWORD = 'h6,
 	AHBL_TWORD = 'h7,
 	AHBL_HSIZE_X = 'hx
-} ahbl_size_enum;
+} ahbl_hsize_enum;
 
 // T: ahbl_switch_enum
 //

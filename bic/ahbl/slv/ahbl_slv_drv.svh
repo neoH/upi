@@ -351,12 +351,12 @@ task ahbl_slv_drv::wait_ctl();
 
 	// then get control information of current htrans
 	//
-	ctl.hburst = ahbl_burst_enum'(`HBURST);
+	ctl.hburst = ahbl_hburst_enum'(`HBURST);
 	ctl.htrans = ahbl_htrans_enum'(`HTRANS);
 	ctl.hwrite = ahbl_rw_enum'(`HWRITE);
 	ctl.haddr  = `HADDR;
 	ctl.hwdata = `HWDATA;
-	ctl.hsize  = ahbl_size_enum'(`HSIZE);
+	ctl.hsize  = ahbl_hsize_enum'(`HSIZE);
 	ctl.hmstlock = `HMSTLOCK;
 	ctl.hprot    = `HPROT;
 
