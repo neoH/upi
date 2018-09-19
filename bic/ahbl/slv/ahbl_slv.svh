@@ -10,10 +10,26 @@ processing flow of ahbl slv driver:
 *******************************************************************************************************************/
 
 
+`uvm_analysis_imp_decl(_mreq)
+`uvm_analysis_imp_decl(_mrsp)
+
 class ahbl_slv #(AW = 32, DW = 32,type IFC) extends uvm_agent;
 
 	localparam type MREQ = ahbl_req_mtrans;
 	localparam type MRSP = ahbl_rsp_mtrans;
+
+	// mreq_imp, declared for upi mode to collecting the request transaction
+	//
+	uvm_analysis_imp_mreq #(MREQ,ahbl_slv) mreq_imp;
+
+	// mrsp_imp, declared for upi mode to collecting the response transactions
+	//
+	uvm_analysis_imp_mrsp #(MRSP,ahbl_slv) mrsp_imp;
+
+	// mreq_que,mrsp_que, the que to store the request/response trans for high level usage.
+	//
+	MREQ mreq_que[$];
+	MRSP mrsp_que[$];
 
 	ahbl_slv_drv #(AW,DW,IFC) m_drv;
 
@@ -40,6 +56,10 @@ class ahbl_slv #(AW = 32, DW = 32,type IFC) extends uvm_agent;
 	extern function void connect_phase (uvm_phase phase);
 	/**********/
 
+	/* imps' functions */
+	extern function void write_mreq (input MREQ _t);
+	extern function void write_mrsp (input MRSP _t);
+
 endclass : ahbl_slv
 
 // ----- class ending
@@ -58,7 +78,27 @@ function void ahbl_slv::build_phase (uvm_phase phase);
 	m_mon = ahbl_slv_mon#(AW,DW,IFC,MREQ,MRSP)::type_id::create("m_mon",this);
 	m_mon.m_cfg = m_cfg;
 
+	// creating the monitor imp for UPI mode.
+	mreq_imp = new ("mreq_imp",this);
+	mrsp_imp = new ("mrsp_imp",this);
+
 endfunction : build_phase
+
+function void ahbl_slv::write_mreq (input MREQ _t);
+	`ifdef `__DBG__
+		`uvm_info(get_type_name(),$sformatf("[__DBG__][write_mreq] get one req trans from monitor:\n%s",_t.sprint()),UVM_LOW)
+	`endif
+	mreq_que.push_back(_t);
+	return;
+endfunction : write_mreq
+
+function void ahbl_slv::write_mrsp (input MRSP _t);
+	`ifdef `__DBG__
+		`uvm_info(get_type_name(),$sformatf("[__DBG__][write_mreq] get one rsp trans from monitor:\n%s",_t.sprint()),UVM_LOW)
+	`endif
+	mrsp_que.push_back(_t);
+	return;
+endfunction : write_mrsp
 
 function void ahbl_slv::connect_phase (uvm_phase phase);
 

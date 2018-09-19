@@ -6,15 +6,19 @@ this api is a direct included file designed for UPI creator to do control action
 *************************************************************************************************************/
 
 
-/**************************************************************************************************
+/*************************************************************************************************************
 APIs for controlling:
-**************************************************************************************************/
+	All the APIs for controlling will described in user guide document.
+*************************************************************************************************************/
 
-// API to set active or passive mode
+// API to set active or passive mode, in active mode, the driver will be instantiated and the interface
+// connected with DUT will be driven by BIC component. The other mode the driver will not work.
+//
 function void set_active; m_cfg.set_active; endfunction
 function void set_passive; m_cfg.set_passive; endfunction
 
-// API to set upi or vip mode
+// API to set upi or vip mode, currently only UPI mode supported.
+//
 function void set_upi; m_cfg.set_upi; endfunction
 function void set_vip; m_cfg.set_vip; endfunction
 
@@ -33,5 +37,42 @@ function void set_dev_auto; m_cfg.set_dev_auto; endfunction
 
 // a function to set the max delay value for slave device
 function void set_max_delay(input uint32_t val); m_cfg.set_max_delay(val); endfunction
+
+/***********************************************************************************************************/
+
+
+
+
+/*************************************************************************************************************
+APIs for monitoring:
+*************************************************************************************************************/
+
+
+// task to wait the request valid, and then pop one request trans to caller
+//
+task wait_req(output MREQ req);
+
+	if (mreq_que.size() == 0) begin // {
+		wait (mreq_que.size()); // if current que is empty, then to wait not empty.
+	end // }
+
+	req = mreq_que.pop_front(); // assign the first item to the output request.
+
+	return;
+
+endtask : wait_req
+
+// task to wait the response valid, and then pop one response trans to caller
+//
+task wait_rsp (output MRSP rsp);
+	if (mrsp_que.size() == 0) begin // {
+		wait (mrsp_que.size()); // if current que is empty, then to wait until not empty
+	end // }
+	rsp = mrsp_que.pop_front(); // assign the first item to output.
+	return;
+endtask : wait_rsp
+
+
+/***********************************************************************************************************/
 
 `endif // AHBL_SLV_API__SVH
