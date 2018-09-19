@@ -7,6 +7,8 @@ It is a monitor component based on ahbl slave protocol.
 
 class ahbl_slv_mon #(AW,DW,type IFC,type REQ,type RSP) extends uvm_monitor #(REQ,RSP);
 
+	typedef ahbl_htrans #(AW,DW) ahbl_htrans_inside;
+
 	// req_port
 	// the port transfer the ahbl request information
 	//
@@ -100,6 +102,10 @@ class ahbl_slv_mon #(AW,DW,type IFC,type REQ,type RSP) extends uvm_monitor #(REQ
 	//
 	extern task get_rsp_mtrans;
 
+	// Task: send_rsp_mtrans
+	// a task to send the response transaction from monitor.
+	extern task send_rsp_mtrans;
+
 	// Task: wait_ctl
 	//
 	// This task to get control information from signal, and then translate into ahbl_htrans_struct
@@ -107,7 +113,7 @@ class ahbl_slv_mon #(AW,DW,type IFC,type REQ,type RSP) extends uvm_monitor #(REQ
 	// entering time of this task is posedge of last trans sampled.
 	// leaving time of this task is posedge of current trans sampled.
 	//
-	extern task wait_ctl(input bit lwreq_en, output ahbl_trans #(AW,DW) _htrans);
+	extern task wait_ctl(input bit lwreq_en, output ahbl_htrans_inside _htrans);
 
 	// Task: wait_hready_high
 	// Wait HCLK until hready is high
@@ -211,7 +217,7 @@ task ahbl_slv_mon::get_req_mtrans ;
 
 	// the var _htrans is a uvm_object typed class that contains all htrans information;
 	//
-	ahbl_htrans #(AW,DW) _htrans = new ("htrans");
+	ahbl_htrans_inside _htrans = new ("htrans");
 
 	// enable flag of last write request, because only write request doesn't need @(posedge `HCLK)
 	// at the beginning of current task.
@@ -259,7 +265,7 @@ task ahbl_slv_mon::get_req_mtrans ;
 	`uvm_info(get_type_name()," [FLOW_TRACE] leaving get_req_mtrans ... ...",UVM_HIGH)
 endtask : get_req_mtrans
 
-task ahbl_slv_mon::wait_ctl (input bit lwreq_en, output ahbl_htrans #(AW,DW) _htrans);
+task ahbl_slv_mon::wait_ctl (input bit lwreq_en, output ahbl_htrans_inside _htrans);
 	`uvm_info(get_type_name()," [FLOW_TRACE] entering wait_ctl ... ...",UVM_HIGH)
 
 	if (!lwreq_en) begin // {
@@ -315,7 +321,6 @@ task ahbl_slv_mon::send_req_mtrans;
 	return;
 
 endtask: send_req_mtrans
-
 
 task ahbl_slv_mon::send_rsp_mtrans;
 

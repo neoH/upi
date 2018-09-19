@@ -47,7 +47,7 @@ typedef enum logic [1:0]
 	AHBL_HTRANS_X = 'bxx
 } ahbl_htrans_enum;
 
-// T: ahbl_burst_enum
+// T: ahbl_hburst_enum
 //
 // Enum of burst type, each field indicates the corresponding burst type
 //
@@ -149,9 +149,9 @@ typedef struct
 class ahbl_htrans #(AW = 32, DW = 32) extends uvm_object;
 
 	ahbl_htrans_enum htrans;
-	ahbl_burst_enum  hburst;
+	ahbl_hburst_enum hburst;
 	ahbl_rw_enum     hwrite;
-	ahbl_size_enum   hsize;
+	ahbl_hsize_enum  hsize;
 	bit [AW-1:0]     haddr;
 	bit [DW-1:0]     hwdata;
 	bit              hmstlock;

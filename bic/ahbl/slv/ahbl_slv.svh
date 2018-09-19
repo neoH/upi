@@ -12,8 +12,8 @@ processing flow of ahbl slv driver:
 
 class ahbl_slv #(AW = 32, DW = 32,type IFC) extends uvm_agent;
 
-	localparam type MREQ = ahbl_slv_mreq;
-	localparam type MRSP = ahbl_slv_mrsp;
+	localparam type MREQ = ahbl_req_mtrans;
+	localparam type MRSP = ahbl_rsp_mtrans;
 
 	ahbl_slv_drv #(AW,DW,IFC) m_drv;
 

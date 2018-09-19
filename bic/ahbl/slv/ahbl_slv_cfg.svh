@@ -99,7 +99,7 @@ class ahbl_slv_cfg #(AW,DW,type IFC) extends uvm_object;
 		end // }
 
 		// check the maximum address
-		if (__size__ != uint32_t'(get_ub_max() - get_lb_min()) begin // {
+		if (__size__ != uint32_t'(get_ub_max() - get_lb_min())) begin // {
 			// if the size changes, then need to resize the memory
 			__size__ = uint32_t'(get_ub_max() - get_lb_min());
 			m_mem.set_size(__size__);
