@@ -19,8 +19,6 @@ class ahbl_slv_drv #(AW,DW,type IFC) extends uvm_driver #(ahbl_slv_treq);
 	uvm_event req_e;
 	uvm_event lst_req_e;
 
-	process m_main_process; // a process thread for reset processing
-
 	uvm_event rst_start;
 	uvm_event rst_done;
 
@@ -326,11 +324,10 @@ task ahbl_slv_drv::main_phase (uvm_phase phase);
 		forever reset_action();
 		forever reset_mon();
 		forever reset_drv_action();
-		forever begin // {
+		forever begin : main_action_block // {
 			rst_done.wait_trigger();
-			m_main_process = process::self();
 			main_action();
-		end // }
+		end : main_action_block // }
 	join // }
 
 	return;
@@ -449,14 +446,7 @@ task ahbl_slv_drv::reset_action();
 
 	rst_start.wait_trigger();  // wait for reset start
 
-	if (m_main_process != null) begin // {
-		// if main action is valid
-		if (m_main_process.status != process::FINISHED) begin // {
-			// if main action not finished
-			m_main_process.kill(); // then to kill main action
-			`uvm_info(get_type_name()," [FLOW_TRACE] reset event detected, killing main actions",UVM_HIGH)
-		end // }
-	end // }
+	disable this.main_phase.main_action_block;
 
 	rst_done.wait_trigger(); // wait for reset done
 
