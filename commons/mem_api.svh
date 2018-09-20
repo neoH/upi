@@ -1,5 +1,5 @@
-`ifndef MEM_API__SVH
-`define MEM_API__SVH
+// `ifndef MEM_API__SVH
+// `define MEM_API__SVH
 
 typedef enum
 {
@@ -133,4 +133,4 @@ function bit mem_api::write (input addr_T addr, input data_T wdata, input uint32
 
 endfunction : write
 
-`endif // MEM_API__SVH
+//`endif // MEM_API__SVH
