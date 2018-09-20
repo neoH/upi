@@ -20,11 +20,11 @@ class ahbl_slv #(AW = 32, DW = 32,type IFC) extends uvm_agent;
 
 	// mreq_imp, declared for upi mode to collecting the request transaction
 	//
-	uvm_analysis_imp_mreq #(MREQ,ahbl_slv) mreq_imp;
+	uvm_analysis_imp_mreq #(MREQ,ahbl_slv#(AW,DW,IFC)) mreq_imp;
 
 	// mrsp_imp, declared for upi mode to collecting the response transactions
 	//
-	uvm_analysis_imp_mrsp #(MRSP,ahbl_slv) mrsp_imp;
+	uvm_analysis_imp_mrsp #(MRSP,ahbl_slv#(AW,DW,IFC)) mrsp_imp;
 
 	// mreq_que,mrsp_que, the que to store the request/response trans for high level usage.
 	//

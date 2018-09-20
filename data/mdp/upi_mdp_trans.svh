@@ -24,4 +24,14 @@ class upi_mdp_slv_treq extends uvm_sequence_item;
 	//
 endclass : upi_mdp_slv_treq
 
+class upi_mdp_slv_mi extends uvm_sequence_item;
+
+	`uvm_object_utils_begin(upi_mdp_slv_mi)
+	`uvm_object_utils_end
+
+	// constructor
+	function new (string name = "upi_mdp_slv_mi"); super.new(name); endfunction
+
+endclass : upi_mdp_slv_mi
+
 `endif // UPI_MDP_TRANS__SVH
