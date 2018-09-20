@@ -12,6 +12,8 @@ package upi_mdp_pkg;
 	`include "data/mdp/upi_mdp_def.svh"
 
 	`include "data/mdp/upi_mdp_type.svh"
+
+	`include "data/mdp/upi_mdp_trans.svh"
 	`include "data/mdp/upi_mdp_cfg.svh"
 	`include "data/mdp/upi_mdp.svh"
 

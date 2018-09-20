@@ -74,7 +74,7 @@ task upi_mdp::main_phase (uvm_phase phase);
 endtask : main_phase
 
 task upi_mdp::ahbl_slv_mi;
-	ahbl_req_mtrans mreq;
+	ahbl_slv_pkg::ahbl_req_mtrans mreq;
 	MI #(AW,DW) mi = new("mi"); // create the new mi trans.
 	// task to do monitor actions for ahbl_slv BIC.
 	m_cfg.__bic__.ahbl_s.wait_req(mreq); // get ahbl slv request info.
@@ -124,7 +124,7 @@ task upi_mdp::ahbl_slv_mi;
 endtask : ahbl_slv_mi
 
 task upi_mdp::ahbl_slv_mo;
-	ahbl_rsp_mtrans mrsp;
+	ahbl_slv_pkg::ahbl_rsp_mtrans mrsp;
 	// for out port, in memory data in package, it is a response trans
 	upi_mdp_mo #(AW,DW) mo = new ("mo");
 
