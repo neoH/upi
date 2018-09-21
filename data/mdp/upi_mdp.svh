@@ -4,8 +4,8 @@
 
 class upi_mdp #(AW = 32, DW = 32) extends uvm_component;
 
-	localparam type MI = upi_mdp_mi;
-	localparam type MO = upi_mdp_mo;
+	localparam type MI = upi_mdp_mi #(AW,DW);
+	localparam type MO = upi_mdp_mo #(AW,DW);
 
 	// mi_port, a monitor transaction port, containing monitor input port.
 	uvm_analysis_port #(MI) mi_port;
