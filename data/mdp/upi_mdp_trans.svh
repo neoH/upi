@@ -59,7 +59,10 @@ endclass : upi_mdp_mi
 // for MDP, the mo trans equals to the mi trans.
 class upi_mdp_mo #(AW,DW) extends upi_mdp_mi #(AW,DW);
 
+	access_resp_enum resp;
+
 	`uvm_object_utils_begin(upi_mdp_mo#(AW,DW))
+		`uvm_field_enum(access_resp_enum,resp,UVM_ALL_ON)
 	`uvm_object_utils_end
 
 	// constructor

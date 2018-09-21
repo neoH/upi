@@ -134,6 +134,14 @@ task upi_mdp::ahbl_slv_mo;
 	mo.addr  = mrsp.addr; // copy address first.
 	mo.stime = mrsp.stime;
 	mo.etime = mrsp.etime;
+	case (mrsp.resp) // {
+		ahbl_slv_pkg::AHBL_OKAY: begin // {
+			mo.resp = okay;
+		end // }
+		ahbl_slv_pkg::AHBL_ERROR: begin // {
+			mo.resp = error;
+		end // }
+	endcase // }
 	case (mrsp.rw) // {
 		// determin the read/write type according to mrsp.rw
 		ahbl_slv_pkg::AHBL_WR: begin mo.rw = write; end

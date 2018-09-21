@@ -16,3 +16,11 @@ typedef enum
 	read,
 	write
 } access_type_enum;
+
+// the access response
+typedef enum
+{
+	okay,
+	error
+	/* other type should be added here */
+} access_resp_enum;
