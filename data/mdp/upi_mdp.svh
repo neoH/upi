@@ -85,34 +85,34 @@ task upi_mdp::ahbl_slv_mi;
 	mi.etime = mreq.etime;
 	case (mreq.rw) // {
 		// determin the read/write type according to mreq.rw
-		AHBL_WR: begin mi.rw = write; end
-		AHBL_RD: begin mi.rw = read; end
+		ahbl_slv_pkg::AHBL_WR: begin mi.rw = write; end
+		ahbl_slv_pkg::AHBL_RD: begin mi.rw = read; end
 	endcase // }
 	if (mi.rw == write) mi.dat  = mreq.wdata; // if is write, then to record the write data
 	// start to calculate the valid length.
-	case (mreq.hsize) // {
-		AHBL_BYTE: begin // {
+	case (mreq.size) // {
+		ahbl_slv_pkg::AHBL_BYTE: begin // {
 			mi.len = 1;
 		end // }
-		AHBL_HWORD: begin // {
+		ahbl_slv_pkg::AHBL_HWORD: begin // {
 			mi.len = 2;
 		end // }
-		AHBL_WORD: begin // {
+		ahbl_slv_pkg::AHBL_WORD: begin // {
 			mi.len = 4;
 		end // }
-		AHBL_DWORD: begin // {
+		ahbl_slv_pkg::AHBL_DWORD: begin // {
 			mi.len = 8;
 		end // }
-		AHBL_FWORD: begin // {
+		ahbl_slv_pkg::AHBL_FWORD: begin // {
 			mi.len = 16;
 		end // }
-		AHBL_EWORD: begin // {
+		ahbl_slv_pkg::AHBL_EWORD: begin // {
 			mi.len = 32;
 		end // }
-		AHBL_SWORD: begin // {
+		ahbl_slv_pkg::AHBL_SWORD: begin // {
 			mi.len = 64;
 		end // }
-		AHBL_TWORD: begin // {
+		ahbl_slv_pkg::AHBL_TWORD: begin // {
 			mi.len = 128;
 		end // }
 	endcase // }
@@ -136,34 +136,34 @@ task upi_mdp::ahbl_slv_mo;
 	mo.etime = mrsp.etime;
 	case (mrsp.rw) // {
 		// determin the read/write type according to mrsp.rw
-		AHBL_WR: begin mo.rw = write; end
-		AHBL_RD: begin mo.rw = read; end
+		ahbl_slv_pkg::AHBL_WR: begin mo.rw = write; end
+		ahbl_slv_pkg::AHBL_RD: begin mo.rw = read; end
 	endcase // }
 	if (mo.rw == write) mo.dat  = mrsp.rdata; // if is write, then to record the write data
 	// start to calculate the valid length.
-	case (mrsp.hsize) // {
-		AHBL_BYTE: begin // {
+	case (mrsp.size) // {
+		ahbl_slv_pkg::AHBL_BYTE: begin // {
 			mo.len = 1;
 		end // }
-		AHBL_HWORD: begin // {
+		ahbl_slv_pkg::AHBL_HWORD: begin // {
 			mo.len = 2;
 		end // }
-		AHBL_WORD: begin // {
+		ahbl_slv_pkg::AHBL_WORD: begin // {
 			mo.len = 4;
 		end // }
-		AHBL_DWORD: begin // {
+		ahbl_slv_pkg::AHBL_DWORD: begin // {
 			mo.len = 8;
 		end // }
-		AHBL_FWORD: begin // {
+		ahbl_slv_pkg::AHBL_FWORD: begin // {
 			mo.len = 16;
 		end // }
-		AHBL_EWORD: begin // {
+		ahbl_slv_pkg::AHBL_EWORD: begin // {
 			mo.len = 32;
 		end // }
-		AHBL_SWORD: begin // {
+		ahbl_slv_pkg::AHBL_SWORD: begin // {
 			mo.len = 64;
 		end // }
-		AHBL_TWORD: begin // {
+		ahbl_slv_pkg::AHBL_TWORD: begin // {
 			mo.len = 128;
 		end // }
 	endcase // }

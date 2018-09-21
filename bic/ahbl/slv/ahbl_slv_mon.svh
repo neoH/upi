@@ -57,7 +57,6 @@ class ahbl_slv_mon #(AW,DW,type IFC,type REQ,type RSP) extends uvm_monitor #(REQ
 
 	/* phases */
 	extern function void build_phase (uvm_phase phase);
-	extern function void connect_phase (uvm_phase phase);
 	extern task main_phase (uvm_phase phase);
 	/**********/
 
@@ -113,7 +112,7 @@ class ahbl_slv_mon #(AW,DW,type IFC,type REQ,type RSP) extends uvm_monitor #(REQ
 	// entering time of this task is posedge of last trans sampled.
 	// leaving time of this task is posedge of current trans sampled.
 	//
-	extern task wait_ctl(input bit lwreq_en, output ahbl_htrans_inside _htrans);
+	extern task wait_ctl(input bit lwreq_en, ref ahbl_htrans_inside _htrans);
 
 	// Task: wait_hready_high
 	// Wait HCLK until hready is high
@@ -265,7 +264,7 @@ task ahbl_slv_mon::get_req_mtrans ;
 	`uvm_info(get_type_name()," [FLOW_TRACE] leaving get_req_mtrans ... ...",UVM_HIGH)
 endtask : get_req_mtrans
 
-task ahbl_slv_mon::wait_ctl (input bit lwreq_en, output ahbl_htrans_inside _htrans);
+task ahbl_slv_mon::wait_ctl (input bit lwreq_en, ref ahbl_htrans_inside _htrans);
 	`uvm_info(get_type_name()," [FLOW_TRACE] entering wait_ctl ... ...",UVM_HIGH)
 
 	if (!lwreq_en) begin // {
