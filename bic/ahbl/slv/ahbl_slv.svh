@@ -109,6 +109,11 @@ function void ahbl_slv::connect_phase (uvm_phase phase);
 	if 	(m_cfg.get_bic_type() != UPI) begin // {
 		/* TODO */
 		// if current bic not in UPI mode, then need to connect the monitor port with current level component.
+	// }
+	end else begin // {
+		// block to declare that bic is in UPI mode.
+		m_mon.req_port.connect(mreq_imp);
+		m_mon.rsp_port.connect(mrsp_imp);
 	end // }
 
 endfunction : connect_phase
